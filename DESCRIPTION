@@ -1,0 +1,12 @@
+Package: FATools
+Title: Tools for Analyzing Fatty Acid Data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Mike", "Thomas", , "mthomas6@uoregon.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Provides a suite of tools for R users that simplifies the process of working with fatty acid chromatographic data. These tools allow users to analyze data in a reproducible way without complicated and error-prone copy/paste operations in spreadsheets.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

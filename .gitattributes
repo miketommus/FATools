@@ -1,0 +1,15 @@
+# Set the default new-line behavior...in case collaborators don't have 
+# core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+# *.c text eol=lf
+# *.h text eol=lf
+# *.R text eol=lf
+# *.Rmd text eol=lf
+# *.md text eol=lf
+# *.Rd text eol=lf
+# *DESCRIPTION text eol=lf
+# *FATools.Rproj text eol=lf
+# *NAMESPACE text eol=lf
