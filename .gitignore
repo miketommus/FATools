@@ -4,3 +4,6 @@
 .httr-oauth
 .DS_store
 .quarto
+.devnotes.qmd
+.devnotes.html
+/.devnotes_files
