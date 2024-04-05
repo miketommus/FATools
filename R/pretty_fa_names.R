@@ -10,17 +10,19 @@
 #' numerical representation of the location of double bonds.
 #' @param sep A character vector that determines what separator is used
 #' between carbon length and number of desaturations.
+#' @param prefsep A character vector that determines what separator is used
+#' after iso and anteiso prefixes, if applicable.
 #'
 #' @return A vector of reformatted names.
 #' @export
 #'
 #' @examples
-#' x <- c("c16.1w7c", "18.0", "20_1_w9")
+#' x <- c("c16.1w7c", "18.0", "20_1_w9", "i 15:0")
 #'
-#' # returns c("16:1ω7c", "18:0", "20:1ω9")
+#' # returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
 #' pretty_fa_names(x)
 #'
-#' # returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)")
+#' # returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
 #' pretty_fa_names(x, style = 3, notation = "n", sep = ".")
 
 # Write a function
