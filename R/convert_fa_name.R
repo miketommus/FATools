@@ -1,6 +1,6 @@
 #' Convert fatty acid names into common formats
 #'
-#' 'pretty_fa_names()' converts fatty acid names into commonly used formats and
+#' 'convert_fa_name()' converts fatty acid names into commonly used formats and
 #' provides the ability to easily customize how they are written.
 #'
 #' @param x A vector of fatty acid names.
@@ -20,13 +20,13 @@
 #' x <- c("c16.1w7c", "18.0", "20_1_w9", "i 15:0")
 #'
 #' # returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
-#' pretty_fa_names(x)
+#' convert_fa_name(x)
 #'
 #' # returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
-#' pretty_fa_names(x, style = 3, notation = "n", sep = ".")
+#' convert_fa_name(x, style = 3, notation = "n", sep = ".")
 
 # Write a function
-pretty_fa_names <- function(x, style = 1, notation = "\u03C9", sep = ":", prefsep = "-") {
+convert_fa_name <- function(x, style = 1, notation = "\u03C9", sep = ":", prefsep = "-") {
 
   # Extracts prefix if present (e.g. iso or anteiso)
   prefix <- stringr::str_extract(x, "^(anteiso|iso|i|a)")
