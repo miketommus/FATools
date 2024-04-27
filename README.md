@@ -6,6 +6,11 @@
 FATools is currently under construction and is not ready to be tested
 outside of a development environment.
 
+Feel free to install and play around with the package, but be warned
+that function names and other breaking changes may be made to the
+package. Don’t use any of these functions in any production code at this
+stage.
+
 # FATools
 
 <!-- badges: start -->
