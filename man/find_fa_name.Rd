@@ -18,8 +18,9 @@ expressions and returns a integer vector of
 indexes where fatty acid names were found.
 }
 \examples{
+# Character vector containing some fatty acid names
 x <- c("c16.1w7c", "not-a-fa", "sample_id", "18.0", "20_1_w9", "i 15:0")
 
-# Returns: 1, 4, 5, 6
+# Returns integer vector c(1L, 4L, 5L, 6L)
 find_fa_name(x)
 }
