@@ -1,32 +1,57 @@
 #' Convert fatty acid names into common formats
 #'
 #' 'convert_fa_name()' converts fatty acid names into commonly used formats and
-#' provides the ability to easily customize how they are written.
+#' provides the ability to customize how they are written.
 #'
-#' @param x A vector of fatty acid names.
-#' @param style A number corresponding to a style table that dictates how names
-#' will be converted. Defaults to "1".
-#' @param notation A character vector that determines what precedes the
-#' numerical representation of the location of double bonds.
+#' @param x A character vector of fatty acid names.
+#' @param ... Additional arguments passed to methods.
+#' @param style An integer corresponding to a style table that dictates the
+#'  format of returned fatty acid names:
+#'  |style|format|
+#'  |---|---|
+#'  |1|16:1w11c|
+#'  |2|16:1 w11c|
+#'  |3|16:1 (w-11) c|
+#'  |4|C16:1w11c|
+#'  |5|C16:1 w11c|
+#'  |6|C16:1 (w-11) c|
 #' @param sep A character vector that determines what separator is used
-#' between carbon length and number of desaturations.
-#' @param prefsep A character vector that determines what separator is used
-#' after iso and anteiso prefixes, if applicable.
+#'   between carbon length and number of desaturations (e.g. the ":" in "16:0").
+#' @param prefix_sep A character vector that determines what separator is used
+#'   after iso and anteiso prefixes, if applicable (e.g. the "-" in "i-15:0").
+#'   Use " " for a space or "" for no prefix separator.
+#' @param notation A character vector that determines what precedes the
+#'   numerical representation of the location of double bonds (e.g. the "n"
+#'   in "16:1n7").
 #'
-#' @return A vector of reformatted names.
+#' @return A character vector of reformatted names.
 #' @export
 #'
 #' @examples
+#' # A vector containing fatty acid names written in various ways
 #' x <- c("c16.1w7c", "18.0", "20_1_w9", "i 15:0")
 #'
-#' # returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
+#' # Returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
 #' convert_fa_name(x)
 #'
-#' # returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
-#' convert_fa_name(x, style = 3, notation = "n", sep = ".")
+#' # Returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
+#' convert_fa_name(
+#'   x,
+#'   style = 3,
+#'   sep = ".",
+#'   prefix_sep = "-",
+#'   notation = "n"
+#' )
 
 # Write a function
-convert_fa_name <- function(x, style = 1, notation = "\u03C9", sep = ":", prefsep = "-") {
+convert_fa_name <- function(
+  x,
+  ...,
+  style = 1,
+  sep = ":",
+  prefix_sep = "-",
+  notation = "\u03c9"
+) {
 
   # Extracts prefix if present (e.g. iso or anteiso)
   prefix <- stringr::str_extract(x, "^(anteiso|iso|i|a)")
@@ -53,9 +78,9 @@ convert_fa_name <- function(x, style = 1, notation = "\u03C9", sep = ":", prefse
   # Replaces punctuation separator (e.g. ":" in 16:0) with sep variable
   acids <- sub("[[:punct:]]", sep, acids)
 
-  # Adds prefsep to prefix
+  # Adds prefix_sep to prefix
   prefix <- gsub_style(
-    paste0(prefix, prefsep)
+    paste0(prefix, prefix_sep)
   )
 
   # Reformats FA name according to style set in function call

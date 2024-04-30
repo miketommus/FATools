@@ -4,36 +4,55 @@
 \alias{convert_fa_name}
 \title{Convert fatty acid names into common formats}
 \usage{
-convert_fa_name(x, style = 1, notation = "ω", sep = ":", prefsep = "-")
+convert_fa_name(x, ..., style = 1, sep = ":", prefix_sep = "-", notation = "ω")
 }
 \arguments{
-\item{x}{A vector of fatty acid names.}
+\item{x}{A character vector of fatty acid names.}
 
-\item{style}{A number corresponding to a style table that dictates how names
-will be converted. Defaults to "1".}
+\item{...}{Additional arguments passed to methods.}
 
-\item{notation}{A character vector that determines what precedes the
-numerical representation of the location of double bonds.}
+\item{style}{An integer corresponding to a style table that dictates the
+format of returned fatty acid names:\tabular{ll}{
+   style \tab format \cr
+   1 \tab 16:1w11c \cr
+   2 \tab 16:1 w11c \cr
+   3 \tab 16:1 (w-11) c \cr
+   4 \tab C16:1w11c \cr
+   5 \tab C16:1 w11c \cr
+   6 \tab C16:1 (w-11) c \cr
+}}
 
 \item{sep}{A character vector that determines what separator is used
-between carbon length and number of desaturations.}
+between carbon length and number of desaturations (e.g. the ":" in "16:0").}
 
-\item{prefsep}{A character vector that determines what separator is used
-after iso and anteiso prefixes, if applicable.}
+\item{prefix_sep}{A character vector that determines what separator is used
+after iso and anteiso prefixes, if applicable (e.g. the "-" in "i-15:0").
+Use " " for a space or "" for no prefix separator.}
+
+\item{notation}{A character vector that determines what precedes the
+numerical representation of the location of double bonds (e.g. the "n"
+in "16:1n7").}
 }
 \value{
-A vector of reformatted names.
+A character vector of reformatted names.
 }
 \description{
 'convert_fa_name()' converts fatty acid names into commonly used formats and
-provides the ability to easily customize how they are written.
+provides the ability to customize how they are written.
 }
 \examples{
+# A vector containing fatty acid names written in various ways
 x <- c("c16.1w7c", "18.0", "20_1_w9", "i 15:0")
 
-# returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
+# Returns c("16:1ω7c", "18:0", "20:1ω9", "i-15:0")
 convert_fa_name(x)
 
-# returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
-convert_fa_name(x, style = 3, notation = "n", sep = ".")
+# Returns c("16.1 (n-7) c", "18.0", "20.1 (n-9)", "i-15.0")
+convert_fa_name(
+  x,
+  style = 3,
+  sep = ".",
+  prefix_sep = "-",
+  notation = "n"
+)
 }
