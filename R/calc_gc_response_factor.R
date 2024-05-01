@@ -72,7 +72,7 @@ calc_gc_response_factor <- function(data, ext_std_concs, ext_std_contents) {
   rf_table
 }
 
-# # test the function
+# test the function
 # test_results <- calc_gc_response_factor(
 #   test_gc_data_filt,
 #   ext_std_concs = c(15, 50, 100, 250),
