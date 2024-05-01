@@ -59,10 +59,12 @@ calc_gc_response_factor <- function(data, ext_std_concs, ext_std_contents) {
         match(name, ext_std_contents$fa)
       ]
       rf <- sum(areas * concs) / sum(concs^2)
-      rf_table <- dplyr::add_row(rf_table, fa = name, rf = rf)
+      # rf_table <- dplyr::add_row(rf_table, fa = name, rf = rf)
+      rf_table <- rbind(rf_table, c(name, rf))
     } else {
       # If FA is not in ext standards, add RF = 0 to rf_table
-      rf_table <- dplyr::add_row(rf_table, fa = name, rf = 0)
+      # rf_table <- dplyr::add_row(rf_table, fa = name, rf = 0)
+      rf_table <- rbind(rf_table, c(name, 0))
     }
 
     rm(name)
