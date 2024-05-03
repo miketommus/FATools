@@ -43,6 +43,27 @@
 #'
 convert_area_to_conc <- function(data, rf_table, ..., rf_map = NULL) {
 
+  # Poor man's error-checking. Fix this.
+  if (!is.data.frame(data)) {
+    stop("data must be of class 'data.frame'.")
+  } else if (!is.data.frame(rf_table) || length(rf_table) != 2) {
+    stop("rf_table must be of class 'data.frame' & contain only two columns.")
+  } else if (all(names(rf_table) != c("fa", "rf"))) {
+    stop("rf_table colnames must be 'fa' & 'rf'.")
+  } else {
+    # continue
+  }
+  # Poor man's error-checking continued.
+  if (!is.null(rf_map)) {
+    if(!is.data.frame(rf_map) || length(rf_map) != 2) {
+      stop("rf_map must be of class 'data.frame' & contain only two columns.")
+    } else if (all(names(rf_map) != c("fa", "ref_fa"))) {
+      stop("rf_map colnames must be 'fa' & 'ref_fa'.")
+    } else {
+      # continue
+    }
+  }
+
   # Check that RF table matches FA in data
   if (!all(sort(colnames(data)) == sort(rf_table$fa))) {
     stop("Compounds in rf_table do not match compounds in data.")

@@ -26,6 +26,13 @@
 #' convert_result_to_prop(data)
 #'
 convert_result_to_prop <- function(data, na.rm = TRUE) {
+  # Poor man's input validation. Fix.
+  if (!is.data.frame(data)) {
+    stop("data must be of class 'data.frame'.")
+  } else {
+    # continue
+  }
+
   # check for C19
   c19 <- sum(
     grepl("19:0", FATools::convert_fa_name(colnames(data))),
