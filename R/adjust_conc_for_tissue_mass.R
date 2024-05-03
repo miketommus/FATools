@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#  #example data
+#'  #example data
 #' data <- data.frame(
 #'   runif(5, min = 1, max = 10),
 #'   runif(5, min = 1, max = 10),
@@ -24,7 +24,7 @@
 #' tiss_mass <- rep(10, 5)
 #'
 #' # Adjust concentration for tissue mass
-#' adjust_conc_for_tissue_mass(data, tiss)
+#' adjust_conc_for_tissue_mass(data, tiss_mass)
 #'
 adjust_conc_for_tissue_mass <- function(
   data,
@@ -32,18 +32,17 @@ adjust_conc_for_tissue_mass <- function(
   extract_vol = 1.5,
   prop_deriv = (1 / 1.5)
 ) {
-  # Should prob add some data validation checks to this
+
+  if (!length(tiss_mass) == length(data[, 1])) {
+    stop("Number of samples (rows) in data does not match length of tiss_mass.")
+  }
 
   # Divide ea. col in data by extracted tissue mass
   data <- data / tiss_mass
+
+  # Adjust for vol of lipid extract & amount used for derivatization
   data <- data * (extract_vol / prop_deriv)
 
   # Return
   data
 }
-
-
-# # compound peak areas
-# # compound concentrations
-# # compound proportions (mass %)
-# # tissue compound concentrations

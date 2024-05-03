@@ -31,6 +31,7 @@ chromatography and calculates the concentration of each compound in
 extracted tissue.
 }
 \examples{
+ #example data
 data <- data.frame(
   runif(5, min = 1, max = 10),
   runif(5, min = 1, max = 10),
@@ -40,6 +41,6 @@ names(data) <- c("8:0", "10:0", "12:0")
 tiss_mass <- rep(10, 5)
 
 # Adjust concentration for tissue mass
-adjust_conc_for_tissue_mass(data, tiss)
+adjust_conc_for_tissue_mass(data, tiss_mass)
 
 }
