@@ -41,11 +41,21 @@
 #' )
 #'
 calc_gc_response_factor <- function(data, ext_std_concs, ext_std_contents) {
+  # Poor man's input validation, fix this
+  if (!is.data.frame(data)) {
+    stop("Data must be of class 'data.frame'.")
+  } else if (!is.vector(ext_std_concs)) {
+    stop("ext_std_concs must be a vector.")
+  } else if (!is.data.frame(ext_std_contents) || length(ext_std_contents) != 2) {
+    stop("ext_std_contents must be of class 'data.frame' with two columns.")
+  } else {
+    # continue
+  }
 
   # Creates empty data frame to hold instrument response factors (RF)
   rf_table <- data.frame(
-    fa = factor(),
-    rf = double()
+    fa = character(),
+    rf = numeric()
   )
 
   # Iterates through all columns of data
@@ -58,13 +68,12 @@ calc_gc_response_factor <- function(data, ext_std_concs, ext_std_contents) {
       concs <- ext_std_concs * ext_std_contents$prop[
         match(name, ext_std_contents$fa)
       ]
-      rf <- sum(areas * concs) / sum(concs^2)
-      # rf_table <- dplyr::add_row(rf_table, fa = name, rf = rf)
-      rf_table <- rbind(rf_table, c(name, rf))
+      rf <- sum(sort(areas) * sort(concs)) / sum(concs^2)
+      rf_table <- rbind(rf_table, data.frame(fa = name, rf = rf))
+
     } else {
-      # If FA is not in ext standards, add RF = 0 to rf_table
-      # rf_table <- dplyr::add_row(rf_table, fa = name, rf = 0)
-      rf_table <- rbind(rf_table, c(name, 0))
+      # If FA !%in% standards, 0 to rf_table
+      rf_table <- rbind(rf_table, data.frame(fa = name, rf = 0))
     }
 
     rm(name)
@@ -73,10 +82,3 @@ calc_gc_response_factor <- function(data, ext_std_concs, ext_std_contents) {
   # Return the rf_table
   rf_table
 }
-
-# test the function
-# test_results <- calc_gc_response_factor(
-#   test_gc_data_filt,
-#   ext_std_concs = c(15, 50, 100, 250),
-#   ext_std_contents = test_nucheck_566c
-# )
