@@ -26,14 +26,23 @@
 #' convert_result_to_prop(data)
 #'
 convert_result_to_prop <- function(data, na.rm = TRUE) {
+  # check for C19
+  c19 <- sum(
+    grepl("19:0", FATools::convert_fa_name(colnames(data))),
+    na.rm = TRUE
+  )
+  if (c19 > 0) {
+    stop("Please remove the internal standard 19:0 from your data.")
+  }
+
   # Divide each data point by the sum of its row
   data <- data / rowSums(data, na.rm = na.rm)
+
+  # Ensure rows sum to 1
+  if (!all(rowSums(data)) == 1) {
+    stop("Proportions do not sum to 1. Please check your data and rerun.")
+  }
 
   # Return data
   data
 }
-
-# # test data
-# data <- test_gc_data[FATools::find_fa_name(names(test_gc_data))]
-# tester <- convert_result_to_prop(data)
-# sum(rowSums(tester, na.rm = TRUE))
