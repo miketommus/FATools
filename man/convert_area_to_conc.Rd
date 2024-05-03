@@ -26,6 +26,30 @@ acids (FA) not in external standards by passing in an RF mapping data
 frame.
 }
 \examples{
-# Add some examples
+# example compound peak area data
+data <- data.frame(
+ runif(5, min = 1000, max = 3000000),
+ runif(5, min = 1000, max = 3000000),
+ runif(5, min = 1000, max = 3000000),
+ runif(5, min = 1000, max = 3000000),
+ runif(5, min = 1000, max = 3000000),
+ runif(5, min = 1000, max = 3000000)
+)
+names(data) <- c("8:0", "10:0", "12:0", "14:0", "i-15:0", "15:0")
+
+# example response factor table
+rf_table <- data.frame(
+ fa = c("10:0", "8:0", "12:0", "14:0", "i-15:0", "15:0"),
+ rf = c(15000, 15000, 16000, 12000, 0, 10000)
+)
+
+# example response factor map
+rf_map <- data.frame(
+ fa = c("8:0", "10:0", "12:0", "14:0", "i-15:0", "15:0"),
+ ref_fa = c(NA, NA, NA, NA, "15:0", NA)
+)
+
+# Convert areas to concentration
+convert_area_to_conc(data, rf_table, rf_map = rf_map)
 
 }
