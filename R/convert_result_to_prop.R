@@ -39,7 +39,7 @@ convert_result_to_prop <- function(data, na.rm = TRUE) {
   data <- data / rowSums(data, na.rm = na.rm)
 
   # Ensure rows sum to 1
-  if (!all(rowSums(data)) == 1) {
+  if (!sum(rowSums(data, na.rm = TRUE)) == length(data[,1])) {
     stop("Proportions do not sum to 1. Please check your data and rerun.")
   }
 
