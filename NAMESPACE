@@ -3,5 +3,6 @@
 export(calc_gc_response_factor)
 export(convert_area_to_conc)
 export(convert_fa_name)
+export(convert_result_to_prop)
 export(find_fa_name)
 export(testfun)
