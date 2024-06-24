@@ -238,6 +238,54 @@ rf6 ---->final6
 classDef finalData stroke:#ff9933, stroke-width:3
 ```
 
+### Identify Data Columns Holding FA Data
+
+Many functions in FATools and those of other packages (think calculating
+distance matrices) require the user to subset their data to only columns
+containing compound data (i.e. without any sample information).
+FATools:find_fa_name() simplifies this process when FA compound names
+are written in a handful of standardized ways.
+
+**Given the following dataframe *data* of FA proportions:**
+
+| sample_id | treatment | i-16:0 | a-16:0 | 16:0  | 16:1n9 | 16:1n7 | 18:0  |
+|-----------|-----------|--------|--------|-------|--------|--------|-------|
+| 001       | fish      | 0.005  | 0.004  | 0.120 | 0.050  | 0.030  | 0.100 |
+| 002       | urchin    | 0.003  | 0.004  | 0.150 | 0.030  | 0.020  | 0.110 |
+| 003       | algae     | 0.004  | 0.003  | 0.130 | 0.040  | 0.060  | 0.009 |
+
+<br>
+
+**Call FATools::find_fa_name() on the column names of *data*:**
+
+``` r
+# Call find_fa_name() on column names of "data"
+data_cols <- FATools::find_fa_name(colnames(data))
+```
+
+**find_fa_name() returns a vector of column indexes for columns where FA
+names were detected:**
+
+``` r
+#> data_cols
+#>[1] 3 4 5 6 7 8
+```
+
+**Use *data_cols* to filter the *data* dataframe to only columns
+containing FA proportions:**
+
+``` r
+just_data <- data[, data_cols]
+```
+
+***just_data* returns:**
+
+| i-16:0 | a-16:0 | 16:0  | 16:1n9 | 16:1n7 | 18:0  |
+|--------|--------|-------|--------|--------|-------|
+| 0.005  | 0.004  | 0.120 | 0.050  | 0.030  | 0.100 |
+| 0.003  | 0.004  | 0.150 | 0.030  | 0.020  | 0.110 |
+| 0.004  | 0.003  | 0.130 | 0.040  | 0.060  | 0.009 |
+
 ## **A Word of Caution**
 
 **FATools** is in early devlopment and is not ready to be used in
