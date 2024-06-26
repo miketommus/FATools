@@ -25,6 +25,7 @@
 #'   in "16:1n7").
 #'
 #' @return A character vector of reformatted names.
+#' @importFrom stringr str_extract
 #' @export
 #'
 #' @examples
